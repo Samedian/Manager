@@ -1,7 +1,38 @@
-<p style="text-align: center;">{{text.data}}</p>
+<p class="center">{{text.data}}</p>
+<div>
+    <select name="Department" (change)="ChangeDepartment($event)">
+        <option>--Select--</option>
+        <option [value]="data.deptId" *ngFor="let data of dept">
+            {{data.deptName}}
+        </option>
+    </select> 
 
+    <select *ngIf="managers != null" name="Managers" (change)="ChangeManager($event)">
+        <option>--Select--</option>
+        <option [value]="data.managerId" *ngFor="let data of managers">
+            {{data.managerName}}
+        </option>
+    </select> 
+</div>
+
+<div>
+    <table *ngIf="manager != null">
+    <tr>
+        <th>Manager Id</th>
+        <th>Manager Name</th>
+        <th>Manager Location</th>
+        <th>Manager Contact</th>
+    </tr>
+    <tr>
+        <td>{{manager.managerId}</td>
+        <td>{{manager.managerName}</td>
+        <td>{{manager.managerLocation}}</td>
+        <td>{{manager.managerContact}}</td>
+    </tr>
+    </table> 
+</div>
 <div mat-dialog-actions>
-    <button mat-raised-button color="warn" (click)="close()">Cancel</button>
+    <button class="margin-left" mat-raised-button color="warn" (click)="close()">Cancel</button>
     <!-- <button mat-button mat-dialog-close>Cancel</button> -->
     <!-- <button mat-button [mat-dialog-close]="true">Close</button> -->
 </div>
