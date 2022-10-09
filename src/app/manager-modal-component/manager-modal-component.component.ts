@@ -18,9 +18,11 @@ export class ManagerModalComponentComponent implements OnInit {
   ) { }
 
   dept : IDepartment[];
-  managers : IManager[];
-  manager : IManager;
+  managers : IManager[]=[];
+  manager : IManager = null;
   text:any;
+  disableManagers : boolean = true;
+  hideManager : boolean = true; 
   ngOnInit(): void {
       this.services.getDepartment().subscribe(
         data => {
@@ -33,20 +35,24 @@ export class ManagerModalComponentComponent implements OnInit {
   ChangeDepartment(e){
     const id = e.target.value;
     if(id!=0){
+      this.disableManagers=false;
     this.services.getManagers(id).subscribe(
       data =>{
         this.managers = data
       }
     )
     }else{
-      this.managers = null;
+      this.disableManagers= true;
     }
 
   }
   ChangeManager(e){
     const id = e.target.value;
     if(id!=0){
+      this.hideManager=false;
       this.manager = this.managers.find(x => x.managerId==id);
+    }else{
+      this.hideManager=true;
     }
   }
   close(){

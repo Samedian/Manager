@@ -1,35 +1,44 @@
 <p class="center">{{text.data}}</p>
-<div>
-    <select name="Department" (change)="ChangeDepartment($event)">
-        <option>--Select--</option>
-        <option [value]="data.deptId" *ngFor="let data of dept">
-            {{data.deptName}}
-        </option>
-    </select> 
-
-    <select *ngIf="managers != null" name="Managers" (change)="ChangeManager($event)">
-        <option>--Select--</option>
-        <option [value]="data.managerId" *ngFor="let data of managers">
-            {{data.managerName}}
-        </option>
-    </select> 
+<div class="row">
+    <div class="col-sm-2">
+        <p>Departmet : </p>
+    </div>
+    <div class="col-sm-4">
+        <select name="Department" (change)="ChangeDepartment($event)">
+            <option [value]="0">--Select--</option>
+            <option [value]="val.deptId" *ngFor="let val of dept">
+               {{val.deptName}}
+            </option>
+        </select>
+    </div>
+    <div class="col-sm-2">
+        <p>Managers : </p>
+    </div>
+    <div class="col-sm-4">
+        <select name="Managers" (change)="ChangeManager($event)">
+            <option [value]="0">--Select--</option>
+            <option [value]="data.managerId" *ngFor="let data of managers">
+                {{data.managerName}}
+            </option>
+        </select>
+    </div>
 </div>
 
 <div>
-    <table *ngIf="manager != null">
-    <tr>
-        <th>Manager Id</th>
-        <th>Manager Name</th>
-        <th>Manager Location</th>
-        <th>Manager Contact</th>
-    </tr>
-    <tr>
-        <td>{{manager.managerId}</td>
-        <td>{{manager.managerName}</td>
-        <td>{{manager.managerLocation}}</td>
-        <td>{{manager.managerContact}}</td>
-    </tr>
-    </table> 
+    <table class="table table-bordered" [hidden]="hideManager">
+        <tr>
+            <th>Manager Id</th>
+            <th>Manager Name</th>
+            <th>Manager Location</th>
+            <th>Manager Contact</th>
+        </tr>
+        <tr *ngIf="manager != null" >
+            <td>{{manager.managerId}}</td>
+            <td>{{manager.managerName}}</td>
+            <td>{{manager.managerLocation}}</td>
+            <td>{{manager.managerContact}}</td>
+        </tr>
+    </table>
 </div>
 <div mat-dialog-actions>
     <button class="margin-left" mat-raised-button color="warn" (click)="close()">Cancel</button>
